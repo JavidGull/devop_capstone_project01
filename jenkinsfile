@@ -1,10 +1,8 @@
 pipeline
 {
+
 agent any 
 
-parameters {
-    choice choices: ['dev', 'prod'], name: 'select_environment'
-}
 
 environment{
     NAME = "javid"
@@ -15,28 +13,9 @@ tools {
 
 stages{
 
-    stage('build')
-    {
-        steps {
-            sh 'mvn clean package -DskipTests=true'
-        }
-    }
-
-    stage('buildtest')
-    { 
- //       agent { label 'DevServer' }
-        steps{
-            echo " Test Execution...."
-            sh "mvn test"
-        }
-    }
-
     stage('deploy_dev')
     {
-        when { expression {params.select_environment == 'dev'}
-        beforeAgent true}
-//        agent { label 'DevServer' }
-        steps
+      steps
         {
           dir("data"){
             sh 'sudo docker build -f ./dockerfile -t caps_project01'    
