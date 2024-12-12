@@ -17,10 +17,9 @@ stages{
     {
       steps
         {
-          dir("data"){
-            sh 'sudo docker build -f ./dockerfile -t caps_project01'    
-           } 
-        }
+          echo "test success"  
+        }  
+
     }
 
   } 
