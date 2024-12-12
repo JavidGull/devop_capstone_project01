@@ -1,6 +1,11 @@
 pipeline
 {
 
+agent {
+  label any
+}
+
+
 parameters {
     choice choices: ['dev', 'prod'], name: 'select_environment'
 }
@@ -23,7 +28,7 @@ stages{
 
     stage('buildtest')
     { 
-        agent { label 'DevServer' }
+ //       agent { label 'DevServer' }
         steps{
             echo " Test Execution...."
             sh "mvn test"
