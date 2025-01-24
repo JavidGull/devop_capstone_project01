@@ -17,16 +17,24 @@ pipeline {
              }
          }
 
-    stage('test') {
+    stage('Develop test') {
+       when {branch 'dev' beforeAgent true}
        agent {label "dev"}
        steps {
-          sh '''  
-                '''
-              }
-         }
+          sh "echo testing the develop"  
+       }
+     }
 
-      stage('deploy_development') {
-        when {branch 'develop' beforeAgent true}
+    stage('Prod test') {
+       when {branch 'master' beforeAgent true}
+       agent {label "local"}
+       steps {
+          sh "echo testing the production "  
+       }
+     }
+
+      stage('Deploy development') {
+        when {branch 'dev' beforeAgent true}
         agent {label "dev"}
           steps {
               sh '''  
@@ -39,7 +47,7 @@ pipeline {
               }
          }
 	
-        stage('deploy_production') {
+        stage('Deploy_production') {
             when {branch 'master' beforeAgent true}
             agent {label "prod"}
             steps {
