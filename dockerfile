@@ -1,7 +1,16 @@
+# Dockerfile - Ubuntu update, Apache2 install and run Apache on start
+
+# Base Platform
 FROM ubuntu
-RUN apt-get update
-RUN apt-get install apache2 -y 
-COPY index.html /var/www/html/
-COPY images/ /var/www/html/images/
+
+# Work directory on the container
+WORKDIR /app
+
+# Execute commands
+RUN apt-get update && \
+apt-get install apache2 -y 
+
+COPY website/ /var/www/html/
 ENTRYPOINT apachectl -D FOREGROUND 
 EXPOSE 80
+
