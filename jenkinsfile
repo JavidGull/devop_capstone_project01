@@ -4,62 +4,10 @@ pipeline {
        stage('Branch Develop Git Checkout Code') {
           when { branch 'develop'
           beforeAgent true}
-          agent {label "dev"}
+          agent {label 'dev'}
           steps {
-               git branch: 'develop', url: 'https://github.com/JavidGull/devop_capstone_project01.git '  
+               git branch: 'develop', url: 'https://github.com/JavidGull/devop_capstone_project01.git'  
              }
          }
-
-    stage( 'Branch master Git Checkout Code') {
-          when { branch 'master' beforeAgent true}
-          agent { label "local"}
-          steps {
-               git branch: 'master', url: 'https://github.com/JavidGull/devop_capstone_project01.git '  
-             }
-         }
-
-    stage('Develop test') {
-       when { branch 'develop' beforeAgent true}
-       agent { label "dev"}
-       steps {
-          sh "echo testing the develop"  
-       }
-     }
-
-    stage('Prod test') {
-       when { branch 'master' beforeAgent true}
-       agent {label "local"}
-       steps {
-          sh "echo testing the production "  
-       }
-     }
-
-      stage('Deploy development') {
-        when { branch 'dev' beforeAgent true}
-        agent {label "dev"}
-          steps {
-              sh '''  
-                # Adding two lines below to stop and then remove the existing container 
-                # sudo docker stop abode_apache_ubuntu 
-                # sudo docker rm $(sudo docker ps -a --filter "name=^abode_apache_ubuntu" --format "{{.ID}}")
-                sudo docker build . -t abode_workflow_image
-                sudo docker run --name apache_ubuntu -p 85:80 -d abode_workflow_image  
-                '''
-              }
-         }
-	
-        stage('Deploy_production') {
-            when { branch 'master' beforeAgent true}
-            agent {label "prod"}
-            steps {
-              sh '''  
-                # Adding two lines below to stop and then remove the existing container 
-                # sudo docker stop abode_apache_ubuntu 
-                # sudo docker rm $(sudo docker ps -a --filter "name=^abode_apache_ubuntu" --format "{{.ID}}")
-                sudo docker build . -t abode_image
-                sudo docker run --name abode_apache_ubuntu -p 90:80 -d abode_image 
-              '''
-            }
-        }
-     }
+    }
 }
