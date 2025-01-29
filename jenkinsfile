@@ -10,7 +10,8 @@ pipeline {
              }
          }
        stage( 'Branch Master Git Checkout Code') {
-          when {branch 'master' beforeAgent true}
+          when {branch 'master' 
+          beforeAgent true}
           agent {label 'prod'}
           steps {
                git branch: 'master', url: 'https://github.com/JavidGull/devop_capstone_project01.git '  
