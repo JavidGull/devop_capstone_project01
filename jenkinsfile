@@ -18,14 +18,16 @@ pipeline {
          }
 
        stage('Test Develop') {
-          when { branch 'develop' beforeAgent true}
+          when { branch 'develop' 
+          beforeAgent true}
           agent {label 'dev'}
           steps {
                  sh "echo 'This test execution is for develop branch'"   
              }
          }
        stage('Test Master') {
-          when { branch 'master' beforeAgent true}
+          when { branch 'master' 
+          beforeAgent true}
           agent {label 'prod'}
           steps {
                  sh "echo 'This test execution is for master branch'"   
