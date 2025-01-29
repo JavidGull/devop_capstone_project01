@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-       stage(''Branch Develop Git Checkout Code'') {
+       stage('Branch Develop Git Checkout Code') {
           when {branch 'develop' beforeAgent true}
           agent {label "dev"}
           steps {
@@ -9,7 +9,7 @@ pipeline {
              }
          }
 
-    stage(''Branch Master Git Checkout Code'') {
+    stage('Branch master Git Checkout Code') {
           when {branch 'master' beforeAgent true}
           agent {label "local"}
           steps {
@@ -18,7 +18,7 @@ pipeline {
          }
 
     stage('Develop test') {
-       when {branch 'dev' beforeAgent true}
+       when {branch 'develop' beforeAgent true}
        agent {label "dev"}
        steps {
           sh "echo testing the develop"  
