@@ -2,31 +2,32 @@ pipeline {
     agent any
     stages {
        stage('Branch Develop Git Checkout Code') {
-          when {branch 'develop' beforeAgent true}
+          when { branch 'develop'
+          beforeAgent true}
           agent {label "dev"}
           steps {
                git branch: 'develop', url: 'https://github.com/JavidGull/devop_capstone_project01.git '  
              }
          }
 
-    stage('Branch master Git Checkout Code') {
-          when {branch 'master' beforeAgent true}
-          agent {label "local"}
+    stage( 'Branch master Git Checkout Code') {
+          when { branch 'master' beforeAgent true}
+          agent { label "local"}
           steps {
                git branch: 'master', url: 'https://github.com/JavidGull/devop_capstone_project01.git '  
              }
          }
 
     stage('Develop test') {
-       when {branch 'develop' beforeAgent true}
-       agent {label "dev"}
+       when { branch 'develop' beforeAgent true}
+       agent { label "dev"}
        steps {
           sh "echo testing the develop"  
        }
      }
 
     stage('Prod test') {
-       when {branch 'master' beforeAgent true}
+       when { branch 'master' beforeAgent true}
        agent {label "local"}
        steps {
           sh "echo testing the production "  
@@ -34,7 +35,7 @@ pipeline {
      }
 
       stage('Deploy development') {
-        when {branch 'dev' beforeAgent true}
+        when { branch 'dev' beforeAgent true}
         agent {label "dev"}
           steps {
               sh '''  
@@ -48,7 +49,7 @@ pipeline {
          }
 	
         stage('Deploy_production') {
-            when {branch 'master' beforeAgent true}
+            when { branch 'master' beforeAgent true}
             agent {label "prod"}
             steps {
               sh '''  
