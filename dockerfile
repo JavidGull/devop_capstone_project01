@@ -10,7 +10,7 @@ WORKDIR /app
 RUN apt-get update && \
 apt-get install apache2 -y 
 
-COPY website/ /var/www/html/
+COPY website /var/www/html/
 ENTRYPOINT apachectl -D FOREGROUND 
 EXPOSE 80
 
