@@ -35,10 +35,10 @@ pipeline {
              }
          }
 
-       stage('deploy_development') {
+       stage('deploy development') {
          when {branch 'develop' 
          beforeAgent true}
-         agent {label "dev"}
+         agent {label 'dev'}
           steps {
               sh '''  
                 # Adding two lines below to stop and then remove the existing container 
